@@ -16,11 +16,11 @@ Health meter:
 """
 
 class Tamagotchi:
-    STATS = ["replete", "happy", "clean", "health", "energy"]
-    def __init__():
-        self.replete = 100
-        self.happy = 100
-        self.clean = 100
+    STATS = ["food", "happiness", "hygiene", "health", "energy"]
+    def __init__(self):
+        self.food = 100
+        self.happiness = 100
+        self.hygiene = 100
         self.health = 100
         self.energy = 100
         self.age = 0
@@ -34,15 +34,8 @@ class Tamagotchi:
         for statistic in self.STATS:
             self.__dict__[statistic] = self.constrain(self.__dict__[statistic])
 
+    # FIXME
     def apply(self, item):
-        self.replete += item.food
-        self.happy += item.happiness
-        self.clean += item.hygiene
-        self.health += item.health
-        self.energy += item.energy
+        for statistic in self.STATS:
+            self.__dict__[statistic] += item.__dict__[statistic]
         self.constrain_stats()
-
-    def feed(self, food):
-        if food.is_snack():
-            self.apply(food)
-        if self.hunger >=

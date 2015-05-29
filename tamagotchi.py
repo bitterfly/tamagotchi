@@ -24,6 +24,7 @@ class Tamagotchi:
         self.health = 100
         self.energy = 100
         self.age = 0
+        self.is_sleeping = False
 
     def constrain(self, value):
         value = min(100, value)
@@ -38,4 +39,20 @@ class Tamagotchi:
     def apply(self, item):
         for statistic in self.STATS:
             self.__dict__[statistic] += item.__dict__[statistic]
+        self.constrain_stats()
+
+    def second_pass(self, seconds=1):
+        #Енергията става на 0 за 8 часа
+
+        if self.is_sleeping:
+            self.energy += seconds * 1 / (8*36)
+            is_sleeping = 1;
+        else:
+            self.energy -= seconds * 1 / (8*36)
+        self.hygiene -= seconds * 1 / (8*36)
+
+        #Гладът и щастието стават на 0 за 4 часа
+        self.food -= seconds * 1 / (4*36)
+        self.happiness -= seconds * 1 / (4*36)
+
         self.constrain_stats()

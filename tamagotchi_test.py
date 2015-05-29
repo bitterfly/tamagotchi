@@ -45,5 +45,31 @@ class TestTamagotchi(unittest.TestCase):
         self.assertEqual(tamagotchi.energy, 100)
         self.assertEqual(tamagotchi.age, 0)
 
+    def test_second_pass_awake_half(self):
+        tamagotchi = Tamagotchi()
+        tamagotchi.second_pass(4*3600)
+        self.assertEqual(tamagotchi.energy, 50)
+        self.assertEqual(tamagotchi.hygiene, 50)
+        self.assertEqual(tamagotchi.food, 0)
+        self.assertEqual(tamagotchi.happiness, 0)
+
+    def test_second_pass_awake_full(self):
+        tamagotchi = Tamagotchi()
+        tamagotchi.second_pass(8*3600)
+        self.assertEqual(tamagotchi.energy, 0)
+        self.assertEqual(tamagotchi.hygiene, 0)
+        self.assertEqual(tamagotchi.food, 0)
+        self.assertEqual(tamagotchi.happiness, 0)
+
+    def test_second_pass_asleep(self):
+        tamagotchi = Tamagotchi()
+        tamagotchi.energy = 0
+        tamagotchi.is_sleeping = True
+        tamagotchi.second_pass(8*3600)
+        self.assertEqual(tamagotchi.energy, 100)
+        self.assertEqual(tamagotchi.hygiene, 0)
+        self.assertEqual(tamagotchi.food, 0)
+        self.assertEqual(tamagotchi.happiness, 0)
+
 if __name__ == '__main__':
     unittest.main()

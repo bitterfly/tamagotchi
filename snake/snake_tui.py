@@ -32,18 +32,13 @@ class SnakeTUI:
             self.draw_board()
         self.die()
 
-    def draw_border(self):
-        pass
-
     def die(self):
         self.screen.clear()
         self.screen.addstr(10, 10, "GAME OVER")
-        time.sleep(1)
-        #nocbreak()
-        #self.screen.keypad(False)
-        #echo()
-        #endwin()
-        #self.snake.die()
+        self.screen.addstr(11, 10, "Score: " + str(self.snake.score))
+        self.screen.refresh()
+        time.sleep(2)
+        self.snake.die()
 
     def draw_board(self):
         self.screen.clear()

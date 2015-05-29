@@ -3,7 +3,7 @@ from core_snake import Snake
 from threading import Thread
 from getch import getch
 import termios
-from curses import wrapper, curs_set, start_color, init_pair, color_pair, use_default_colors
+from curses import wrapper, curs_set, start_color, init_pair, color_pair, use_default_colors, endwin, echo, nocbreak
 
 class SnakeTUI:
     def __init__(self, stdscr):
@@ -20,6 +20,8 @@ class SnakeTUI:
     def new_game(self):
         directions = {258: "down", 259: "up", 260: "left", 261: "right"}
         while(True):
+            if self.snake.dead:
+                break
             time.sleep(0.075)
             current_button = self.screen.getch()
             if current_button == 27:
@@ -35,7 +37,13 @@ class SnakeTUI:
 
     def die(self):
         self.screen.clear()
-        self.snake.die()
+        self.screen.addstr(10, 10, "GAME OVER")
+        time.sleep(1)
+        #nocbreak()
+        #self.screen.keypad(False)
+        #echo()
+        #endwin()
+        #self.snake.die()
 
     def draw_board(self):
         self.screen.clear()

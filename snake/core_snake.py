@@ -3,6 +3,9 @@ from random import randrange
 
 class Snake:
     def __init__(self, width=75, height=50):
+        if width < 10 or height < 10:
+            width = 75
+            height = 50
         self.field_height = height
         self.field_width = width
         self.score = 0

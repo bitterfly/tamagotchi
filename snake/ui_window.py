@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'window.ui'
 #
-# Created: Fri May 29 19:17:12 2015
+# Created: Mon Jun  8 18:47:51 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.snake_widget = SnakeGUI(self.centralwidget)
+        self.snake_widget = SnakeWidget(self.centralwidget)
         self.snake_widget.setObjectName("snake_widget")
         self.pause = QtWidgets.QLabel(self.snake_widget)
         self.pause.setGeometry(QtCore.QRect(140, 120, 331, 341))
@@ -33,4 +33,4 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
-from snake import SnakeGUI
+from snake_widget import SnakeWidget

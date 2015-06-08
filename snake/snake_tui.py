@@ -1,9 +1,6 @@
 import sys
 import time
-from core_snake import Snake
-from threading import Thread
-from getch import getch
-import termios
+from snake import Snake
 from curses import wrapper
 from curses import curs_set
 from curses import start_color

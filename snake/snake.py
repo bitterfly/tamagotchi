@@ -1,93 +1,67 @@
 import sys
 import time
-from PyQt5.QtWidgets import QWidget
-from PyQt5 import QtGui, QtCore
 from random import randrange
-from core_snake import Snake
 
 
-class SnakeGUI(QWidget):
-    def __init__(self, parent):
-        super(SnakeGUI, self).__init__(parent)
-        self.snake = Snake()
-        self.newGame()
-        self.colors = [QtGui.QColor(255, 0, 0, 255),
-                       QtGui.QColor(255, 255, 0, 255),
-                       QtGui.QColor(0, 0, 255, 255),
-                       QtGui.QColor(0, 255, 0, 255)]
+class Snake:
+    def __init__(self, width=75, height=50):
+        if width < 10 or height < 10:
+            width = 75
+            height = 50
+        self.field_height = height
+        self.field_width = width
+        self.score = 0
+        self.maxscore = 0
+        self.x = self.field_width // 2
+        self.y = self.field_height // 2
+        self.direction = (1, 0)
+        self.last_direction = (1, 0)
+        self.snake_body = [(self.x, self.y), (self.x - 1, self.y),
+                           (self.x - 2, self.y)]
+        self.dead = False
+        self.food_coordinates = (0, 0)
+        self.put_food()
 
-    def newGame(self):
-        self.is_paused = False
-        self.show()
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.move)
-        self.timer.start(75)
+    def put_food(self):
+        while self.food_coordinates in self.snake_body:
+            self.food_coordinates = (randrange(0, self.field_width),
+                                     randrange(0, self.field_height))
 
-    def resizeEvent(self, event):
-        self._cell_height = self.size().height() // self.snake.field_height
-        self._cell_width = self.size().width() // self.snake.field_width
+    def key_press(self, key):
+        if key == "down" and (self.last_direction != (0, 1)
+                              and self.last_direction != (0, -1)):
+            self.direction = (0, 1)
+        elif key == "up" and (self.last_direction != (0, 1)
+                              and self.last_direction != (0, -1)):
+            self.direction = (0, -1)
+        elif key == "right" and (self.last_direction != (1, 0)
+                                 and self.last_direction != (-1, 0)):
+            self.direction = (1, 0)
+        elif key == "left" and (self.last_direction != (1, 0)
+                                and self.last_direction != (-1, 0)):
+            self.direction = (-1, 0)
 
-    def paintEvent(self, event):
-        canvas = QtGui.QPainter()
-        canvas.begin(self)
-        self.drawFood(canvas)
-        self.drawSnake(canvas)
-        canvas.end()
-
-    def keyPressEvent(self, event):
-        directions = {QtCore.Qt.Key_Down: "down",
-                      QtCore.Qt.Key_Up: "up",
-                      QtCore.Qt.Key_Right: "right",
-                      QtCore.Qt.Key_Left: "left"}
-        if self.snake.dead and event.key() == QtCore.Qt.Key_N:
-            self.newGame()
-
-        if event.key() == QtCore.Qt.Key_Escape:
+    def step(self, direction):
+        self.last_direction = self.direction
+        new_x = (self.x + direction[0]) % self.field_width
+        new_y = (self.y + direction[1]) % self.field_height
+        if (new_x, new_y) in self.snake_body:
             self.die()
-            self.hide()
-
-        if event.key() == QtCore.Qt.Key_Space:
-            self.pause()
-
-        if not self.is_paused and event.key() in directions.keys():
-            self.snake.key_press(directions[event.key()])
-
-    def pause(self):
-        if not self.snake.dead:
-            if self.is_paused:
-                self.pause_label.setText("")
-                self.is_paused = False
-                self.timer.start()
+        else:
+            self.snake_body.insert(0, (new_x, new_y))
+            self.x = new_x
+            self.y = new_y
+            if (self.x, self.y) == self.food_coordinates:
+                self.put_food()
+                self.score += 1
             else:
+                self.snake_body.pop()
 
-                self.is_paused = True
-                self.pause_label.setText("Press Space or arrows to continue")
-                self.timer.stop()
-                print(self.snake.score)
-
-    def drawSnake(self, canvas):
-        canvas.setPen(QtCore.Qt.NoPen)
-        for segment in self.snake.snake_body:
-            canvas.setBrush(QtGui.QColor(255, 80, 0, 255))
-            canvas.drawRect(segment[0] * self._cell_width,
-                            segment[1] * self._cell_height,
-                            self._cell_width, self._cell_height)
-
-    def drawFood(self, canvas):
-        canvas.setPen(QtCore.Qt.NoPen)
-        canvas.setBrush(QtGui.QColor(0, 80, 255, 255))
-        canvas.drawEllipse(
-            self.snake.food_coordinates[0] * self._cell_width,
-            self.snake.food_coordinates[1] * self._cell_height,
-            self._cell_width, self._cell_height
-            )
-
-    @QtCore.pyqtSlot()
     def move(self):
-        self.snake.move()
-        self.repaint()
+        self.step(self.direction)
 
     def die(self):
-        self.timer.stop()
         self.dead = True
-        self.snake.die()
+        if self.score > self.maxscore:
+            self.maxscore = self.score
+        return self.maxscore

@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="SnakeGUI" name="snake_widget" native="true">
+     <widget class="SnakeWidget" name="snake_widget" native="true">
       <widget class="QLabel" name="pause">
        <property name="geometry">
         <rect>
@@ -37,9 +37,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SnakeGUI</class>
+   <class>SnakeWidget</class>
    <extends>QWidget</extends>
-   <header>snake</header>
+   <header>snake_widget</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -25,7 +25,7 @@ class TestSnake(unittest.TestCase):
         self.assertEqual(snake.snake_body, [(50, 50), (49, 50), (48, 50)])
 
     def test_init_small_field(self):
-        snake = Snake(width = 0, height = 1000)
+        snake = Snake(width=0, height=1000)
         self.assertEqual(snake.field_height, 50)
         self.assertEqual(snake.field_width, 75)
 
@@ -57,21 +57,14 @@ class TestSnake(unittest.TestCase):
         self.assertEqual(snake.x, 51)
         self.assertEqual(snake.y, 50)
 
-
     def test_step_eating(self):
         snake = Snake(width=100, height=100)
         snake.food_coordinates = (51, 50)
         snake.step((1, 0))
-        self.assertEqual(snake.snake_body, [(51, 50), (50, 50), (49, 50), (48, 50)])
+        self.assertEqual(snake.snake_body, [(51, 50), (50, 50),
+                                            (49, 50), (48, 50)])
         self.assertEqual(snake.score, 1)
-        #self.assertTrue(snake.food_coordinates not in snake.snake_body)
+        self.assertTrue(snake.food_coordinates not in snake.snake_body)
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
-

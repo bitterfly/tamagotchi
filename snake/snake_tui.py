@@ -1,14 +1,25 @@
-import sys, time
+import sys
+import time
 from core_snake import Snake
 from threading import Thread
 from getch import getch
 import termios
-from curses import wrapper, curs_set, start_color, init_pair, color_pair, use_default_colors, endwin, echo, nocbreak
+from curses import wrapper
+from curses import curs_set
+from curses import start_color
+from curses import init_pair
+from curses import color_pair
+from curses import use_default_colors
+from curses import endwin
+from curses import echo
+from curses import nocbreak
+
 
 class SnakeTUI:
     def __init__(self, stdscr):
         self.screen = stdscr
-        self.snake = Snake(self.screen.getmaxyx()[1] // 2 - 1, self.screen.getmaxyx()[0])
+        self.snake = Snake(self.screen.getmaxyx()[1] // 2 - 1,
+                           self.screen.getmaxyx()[0])
         self.screen.nodelay(1)
         curs_set(0)
         start_color()
@@ -42,7 +53,9 @@ class SnakeTUI:
 
     def draw_board(self):
         self.screen.clear()
-        self.screen.addstr(self.snake.food_coordinates[1], self.snake.food_coordinates[0] * 2, "⬤", color_pair(2))
+        self.screen.addstr(self.snake.food_coordinates[1],
+                           self.snake.food_coordinates[0] * 2,
+                           "⬤", color_pair(2))
         for x, y in self.snake.snake_body:
             self.screen.addstr(y, x * 2, "  ", color_pair(1))
         self.screen.refresh()

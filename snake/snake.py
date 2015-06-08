@@ -1,16 +1,20 @@
+import sys
+import time
 from PyQt5.QtWidgets import QWidget
 from PyQt5 import QtGui, QtCore
-import sys, time
 from random import randrange
 from core_snake import Snake
+
 
 class SnakeGUI(QWidget):
     def __init__(self, parent):
         super(SnakeGUI, self).__init__(parent)
         self.snake = Snake()
         self.newGame()
-        self.colors = [QtGui.QColor(255, 0, 0, 255), QtGui.QColor(255, 255, 0, 255), QtGui.QColor(0, 0, 255, 255), QtGui.QColor(0, 255, 0, 255)]
-
+        self.colors = [QtGui.QColor(255, 0, 0, 255),
+                       QtGui.QColor(255, 255, 0, 255),
+                       QtGui.QColor(0, 0, 255, 255),
+                       QtGui.QColor(0, 255, 0, 255)]
 
     def newGame(self):
         self.is_paused = False
@@ -65,12 +69,18 @@ class SnakeGUI(QWidget):
         canvas.setPen(QtCore.Qt.NoPen)
         for segment in self.snake.snake_body:
             canvas.setBrush(QtGui.QColor(255, 80, 0, 255))
-            canvas.drawRect(segment[0] * self._cell_width, segment[1] * self._cell_height, self._cell_width, self._cell_height)
+            canvas.drawRect(segment[0] * self._cell_width,
+                            segment[1] * self._cell_height,
+                            self._cell_width, self._cell_height)
 
     def drawFood(self, canvas):
         canvas.setPen(QtCore.Qt.NoPen)
         canvas.setBrush(QtGui.QColor(0, 80, 255, 255))
-        canvas.drawEllipse(self.snake.food_coordinates[0] * self._cell_width, self.snake.food_coordinates[1] * self._cell_height, self._cell_width, self._cell_height)
+        canvas.drawEllipse(
+            self.snake.food_coordinates[0] * self._cell_width,
+            self.snake.food_coordinates[1] * self._cell_height,
+            self._cell_width, self._cell_height
+            )
 
     @QtCore.pyqtSlot()
     def move(self):

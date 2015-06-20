@@ -13,38 +13,66 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="animal">
+  <widget class="QWidget" name="frame_widget">
+   <widget class="QPushButton" name="play">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>50</y>
-      <width>333</width>
-      <height>433</height>
+      <x>20</x>
+      <y>570</y>
+      <width>92</width>
+      <height>27</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
     <property name="text">
-     <string/>
+     <string>Play</string>
     </property>
    </widget>
-   <widget class="QLabel" name="poo">
+   <widget class="QPushButton" name="bla1">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>390</y>
-      <width>81</width>
-      <height>91</height>
+      <x>240</x>
+      <y>570</y>
+      <width>92</width>
+      <height>27</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bla2">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>570</y>
+      <width>92</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="TamagotchiWidget" name="tamagotchi_widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>29</x>
+      <y>19</y>
+      <width>531</width>
+      <height>531</height>
+     </rect>
     </property>
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TamagotchiWidget</class>
+   <extends>QWidget</extends>
+   <header>tamagotchi_widget</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

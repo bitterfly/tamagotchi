@@ -29,7 +29,7 @@ class SnakeWidget(QWidget):
         self.show()
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.move)
-        self.timer.start(75)
+        self.timer.start(90)
 
     def resizeEvent(self, event):
         self._cell_height = self.size().height() // self.snake.field_height

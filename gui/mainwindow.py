@@ -49,4 +49,5 @@ class MainWindow(QMainWindow):
     @QtCore.pyqtSlot()
     def snake_game(self):
         #скрива се тамагочито и се показва змията
+        self.ui.snake_widget.newGame()
         self.set_focus(self.ui.snake_widget, self.ui.tamagotchi_widget)

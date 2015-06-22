@@ -92,11 +92,12 @@ class SnakeWidget(QWidget):
 
     @QtCore.pyqtSlot()
     def move(self):
+        if self.snake.dead:
+            self.die()
         self.snake.move()
         self.repaint()
 
     def die(self):
         self.timer.stop()
-        self.dead = True
         self.snake.die()
         self.dead_signal.emit()

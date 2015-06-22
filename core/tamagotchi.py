@@ -46,7 +46,7 @@ class Tamagotchi:
         self.stats["hygiene"] -= seconds * 1 / (8*36)
 
         #Гладът и щастието стават на 0 за 4 часа
-        self.stats["food"] -= seconds * 1 / (4*36)
+        self.stats["food"] -= seconds * 10 / (4*36)
         self.stats["happiness"] -= seconds * 1 / (4*36)
 
         self.constrain_stats()

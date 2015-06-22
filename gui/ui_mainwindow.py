@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Jun 22 22:18:01 2015
+# Created: Mon Jun 22 23:19:44 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -36,6 +36,10 @@ class Ui_MainWindow(object):
         self.tamagotchi_widget = TamagotchiWidget(self.horizontalLayoutWidget)
         self.tamagotchi_widget.setObjectName("tamagotchi_widget")
         self.canvases.addWidget(self.tamagotchi_widget)
+        self.hunger_bar = QtWidgets.QProgressBar(self.frame_widget)
+        self.hunger_bar.setGeometry(QtCore.QRect(20, 600, 118, 23))
+        self.hunger_bar.setProperty("value", 100)
+        self.hunger_bar.setObjectName("hunger_bar")
         MainWindow.setCentralWidget(self.frame_widget)
 
         self.retranslateUi(MainWindow)

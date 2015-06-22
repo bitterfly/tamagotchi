@@ -71,6 +71,19 @@
      </item>
     </layout>
    </widget>
+   <widget class="QProgressBar" name="hunger_bar">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>600</y>
+      <width>118</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>100</number>
+    </property>
+   </widget>
   </widget>
  </widget>
  <customwidgets>

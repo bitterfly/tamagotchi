@@ -34,8 +34,13 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.second_pass)
         self.timer.start(100)
 
+    @QtCore.pyqtSlot()
     def second_pass(self):
         self.tamagotchi.second_pass()
+        self.update_bars()
+
+    def update_bars(self):
+        self.ui.hunger_bar.setValue(self.tamagotchi.stats["food"])
 
     @QtCore.pyqtSlot()
     def end_snake_game(self):

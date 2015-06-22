@@ -53,15 +53,23 @@
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="TamagotchiWidget" name="tamagotchi_widget" native="true">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>29</x>
-      <y>19</y>
-      <width>531</width>
-      <height>531</height>
+      <x>10</x>
+      <y>10</y>
+      <width>571</width>
+      <height>541</height>
      </rect>
     </property>
+    <layout class="QHBoxLayout" name="canvases">
+     <item>
+      <widget class="SnakeWidget" name="snake_widget" native="true"/>
+     </item>
+     <item>
+      <widget class="TamagotchiWidget" name="tamagotchi_widget" native="true"/>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
@@ -70,6 +78,12 @@
    <class>TamagotchiWidget</class>
    <extends>QWidget</extends>
    <header>tamagotchi_widget</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SnakeWidget</class>
+   <extends>QWidget</extends>
+   <header>snake_widget</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -20,6 +20,7 @@ class Tamagotchi:
         self.stats = {"food": 100, "happiness": 100, "hygiene": 100,
                  "health": 100, "energy": 100, "age": 0}
         self.is_sleeping = False
+        self.is_dead = False
 
     def constrain(self, value):
         value = min(100, value)
@@ -37,17 +38,30 @@ class Tamagotchi:
 
     def second_pass(self, seconds=1):
         #Енергията става на 0 за 8 часа
+        sleep_bonus = 0
 
         if self.is_sleeping:
             self.stats["energy"] += seconds * 1 / (8*36)
             is_sleeping = 1;
+            sleep_bonus = 4
         else:
             self.stats["energy"] -= seconds * 1 / (8*36)
-        self.stats["hygiene"] -= seconds * 1 / (8*36)
+            #Здравето ще пада само в будно състояние, за да не умре,
+            #докато спи :Д
+
+            if self.stats["happiness"] <= 50 or
+               self.stats["hygiene"] <= 50:
+                self.stats["health"] -= seconds * 1 / (4 * 36)
+
+        self.stats["hygiene"] -= seconds * 1 / ((4 + sleep_bonus) * 36)
 
         #Гладът и щастието стават на 0 за 4 часа
-        self.stats["food"] -= seconds * 10 / (4*36)
-        self.stats["happiness"] -= seconds * 1 / (4*36)
+        #!!! проба
+        self.stats["food"] -= seconds * 10 / ((4 + sleep_bonus)*36)
+        self.stats["happiness"] -= seconds * 1 / ((4 + sleep_bonus)*36)
 
         self.constrain_stats()
 
+        if self.stats["food"] == 0 or
+           self.stats["health"] == 0:
+           self.is_dead = True

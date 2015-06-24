@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>800</height>
+    <width>702</width>
+    <height>552</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,59 @@
     <item>
      <layout class="QHBoxLayout" name="canvases">
       <item>
+       <layout class="QVBoxLayout" name="buttons">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>200</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>another</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="play">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Play</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="SnakeWidget" name="snake_widget" native="true">
-        <zorder>tamagotchi_widget</zorder>
-        <zorder>horizontalLayoutWidget_2</zorder>
+        <property name="styleSheet">
+         <string notr="true">border-style: outset;
+    border-width: 2px;
+    border-color: beige;</string>
+        </property>
+        <zorder>verticalSpacer</zorder>
+        <zorder>horizontalLayoutWidget</zorder>
        </widget>
       </item>
       <item>
@@ -29,34 +79,16 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="buttons">
-      <item>
-       <widget class="QPushButton" name="play">
-        <property name="text">
-         <string>Play</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bla1">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bla2">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
      <widget class="QProgressBar" name="hunger_bar">
       <property name="value">
        <number>100</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>24</number>
       </property>
      </widget>
     </item>

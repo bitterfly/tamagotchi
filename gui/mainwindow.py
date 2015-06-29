@@ -28,11 +28,13 @@ class MainWindow(QMainWindow):
         self.set_focus(self.ui.tamagotchi_widget, self.ui.snake_widget)
 
         self.ui.snake_widget.dead_signal.connect(self.end_snake_game)
+        self.ui.snake_widget.coin_signal.connect(self.add_coins)
 
         #Таймерът, с който се отмерва времето на самото животно
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.second_pass)
         self.timer.start(100)
+        self.ui.coin.setPixmap(self.ui.tamagotchi_widget.coin_image)
 
     @QtCore.pyqtSlot()
     def second_pass(self):
@@ -40,11 +42,19 @@ class MainWindow(QMainWindow):
         self.update_bars()
 
     def update_bars(self):
-        self.ui.hunger_bar.setValue(self.tamagotchi.stats["food"])
+        self.ui.food_bar.setValue(self.tamagotchi.stats["food"])
+        self.ui.hygiene_bar.setValue(self.tamagotchi.stats["hygiene"])
+        self.ui.happiness_bar.setValue(self.tamagotchi.stats["happiness"])
+        self.ui.energy_bar.setValue(self.tamagotchi.stats["energy"])
+        self.ui.health_bar.setValue(self.tamagotchi.stats["health"])
 
     @QtCore.pyqtSlot()
     def end_snake_game(self):
         self.set_focus(self.ui.tamagotchi_widget, self.ui.snake_widget)
+
+    @QtCore.pyqtSlot()
+    def add_coins(self):
+        self.ui.number_of_coins.setText(str(int(self.ui.number_of_coins.text()) + 1))
 
     def set_focus(self, new_widget, old_widget):
         old_widget.hide()

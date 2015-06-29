@@ -14,6 +14,7 @@ sys.path.append(os.path.join(parent_directory, "snake"))
 from snake import Snake
 
 class SnakeWidget(QWidget):
+    coin_signal = QtCore.pyqtSignal()
     dead_signal = QtCore.pyqtSignal()
     def __init__(self, parent):
         super(SnakeWidget, self).__init__(parent)
@@ -77,16 +78,16 @@ class SnakeWidget(QWidget):
         canvas.setPen(QtCore.Qt.NoPen)
         for segment in self.snake.snake_body:
             canvas.setBrush(QtGui.QColor(255, 80, 0, 255))
-            canvas.drawRect(segment[0] * self._cell_width,
-                            segment[1] * self._cell_height,
-                            self._cell_width, self._cell_height)
+            canvas.drawRect((segment[0] * self.size().width()) // self.snake.field_width,
+                            (segment[1] * self.size().height()) // self.snake.field_height,
+                            self._cell_width + 1, self._cell_height + 1)
 
     def drawFood(self, canvas):
         canvas.setPen(QtCore.Qt.NoPen)
         canvas.setBrush(QtGui.QColor(0, 80, 255, 255))
         canvas.drawEllipse(
-            self.snake.food_coordinates[0] * self._cell_width,
-            self.snake.food_coordinates[1] * self._cell_height,
+            (self.snake.food_coordinates[0] * self.size().width()) // self.snake.field_width,
+            (self.snake.food_coordinates[1] * self.size().height()) // self.snake.field_height,
             self._cell_width, self._cell_height
             )
 
@@ -94,7 +95,10 @@ class SnakeWidget(QWidget):
     def move(self):
         if self.snake.dead:
             self.die()
+        score = self.snake.score
         self.snake.move()
+        if self.snake.score > score:
+            self.coin_signal.emit()
         self.repaint()
 
     def die(self):

@@ -49,19 +49,19 @@ class Tamagotchi:
             #Здравето ще пада само в будно състояние, за да не умре,
             #докато спи :Д
 
-            if self.stats["happiness"] <= 50 or
-               self.stats["hygiene"] <= 50:
+            if (self.stats["happiness"] <= 50 or
+               self.stats["hygiene"] <= 50):
                 self.stats["health"] -= seconds * 1 / (4 * 36)
 
         self.stats["hygiene"] -= seconds * 1 / ((4 + sleep_bonus) * 36)
 
         #Гладът и щастието стават на 0 за 4 часа
         #!!! проба
-        self.stats["food"] -= seconds * 10 / ((4 + sleep_bonus)*36)
+        self.stats["food"] -= seconds * 1 / ((4 + sleep_bonus)*36)
         self.stats["happiness"] -= seconds * 1 / ((4 + sleep_bonus)*36)
 
         self.constrain_stats()
 
-        if self.stats["food"] == 0 or
-           self.stats["health"] == 0:
+        if (self.stats["food"] == 0 or
+           self.stats["health"] == 0):
            self.is_dead = True

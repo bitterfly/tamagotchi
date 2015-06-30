@@ -84,11 +84,13 @@ class MainWindow(QMainWindow):
 
     @QtCore.pyqtSlot()
     def save(self):
+        if self.tamagotchi.is_playing:
+            self.ui.snake_widget.setFocus()
+        self.tamagotchi.is_playing = False
         with open(os.path.join(xdg_config_home, 'tamagotchi.pickle'), 'wb') as output_file:
             pickle.dump(self.tamagotchi, output_file)
             pickle.dump(datetime.now(), output_file)
-        if self.tamagotchi.is_playing:
-            self.snake_widget.setFocus()
+
     @QtCore.pyqtSlot()
     def snake_game(self):
         if not self.tamagotchi.is_playing:

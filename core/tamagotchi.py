@@ -14,6 +14,7 @@ Health meter:
 * От време на време ще се разболява  и трябва да му се купи лекарство от магазина.
 * Ако не се почиства се разболява.
 """
+from random import randint
 
 class Tamagotchi:
     def __init__(self):
@@ -21,6 +22,8 @@ class Tamagotchi:
                  "health": 100, "energy": 100, "age": 0}
         self.is_sleeping = False
         self.is_dead = False
+        self.is_playing = False
+        self.is_sick = False
 
     def constrain(self, value):
         value = min(100, value)
@@ -36,31 +39,47 @@ class Tamagotchi:
             self.stats[statistic] += item.stats[statistic]
         self.constrain_stats()
 
+    def decrease_to_minimum(self, statistic, hours):
+        self.stats[statistic] -= (seconds * 1) / (hours * 36)
+
+    def increase_to_maximum(self, statistic, hours):
+        self.stats[statistic] += (seconds * 1) / (hours * 36)
+
+    def random_event(self):
+        if(randint(0, 10000) == 0):
+            self.is_sick = True
+    def cure(self):
+        self.is_sick = False
+
     def second_pass(self, seconds=1):
-        #Енергията става на 0 за 8 часа
-        sleep_bonus = 0
-
+        "Докато спиш всички статове падат за 8 часа, освен сънят, който се възстановява"
         if self.is_sleeping:
-            self.stats["energy"] += seconds * 1 / (8*36)
-            is_sleeping = 1;
-            sleep_bonus = 4
+            increase_to_maximum("energy", 8)
+            decrease_to_minimum("happiness", 16)
+            decrease_to_minimum("hygiene", 16)
+            decrease_to_minimum("food", 16)
         else:
-            self.stats["energy"] -= seconds * 1 / (8*36)
-            #Здравето ще пада само в будно състояние, за да не умре,
-            #докато спи :Д
+            "Докато играеш, повечето статистики падат по-бързо."
+            if self.is_playing:
+                decrease_to_minimum("energy", 4)
+                decrease_to_minimum("hygiene", 4)
+                decrease_to_minimum("food", 5)
+                increase_to_maximum("happiness", 8)
+            else:
+                decrease_to_minimum("energy", 6)
+                decrease_to_minimum("hygiene", 6)
+                decrease_to_minimum("food", 6)
+                decrease_to_minimum("happiness", 6)
 
-            if (self.stats["happiness"] <= 50 or
+        if (self.stats["happiness"] <= 50 or
                self.stats["hygiene"] <= 50):
-                self.stats["health"] -= seconds * 1 / (4 * 36)
-
-        self.stats["hygiene"] -= seconds * 1 / ((4 + sleep_bonus) * 36)
-
-        #Гладът и щастието стават на 0 за 4 часа
-        #!!! проба
-        self.stats["food"] -= seconds * 1 / ((4 + sleep_bonus)*36)
-        self.stats["happiness"] -= seconds * 1 / ((4 + sleep_bonus)*36)
+                self.is_sick = True
+        if self.is_sick:
+            decrease_to_minimum("health", 5)
 
         self.constrain_stats()
+
+        self.random_event()
 
         if (self.stats["food"] == 0 or
            self.stats["health"] == 0):

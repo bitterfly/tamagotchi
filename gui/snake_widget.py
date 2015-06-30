@@ -18,7 +18,8 @@ class SnakeWidget(QWidget):
     dead_signal = QtCore.pyqtSignal()
     def __init__(self, parent):
         super(SnakeWidget, self).__init__(parent)
-        self.snake = Snake()
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.move)
         self.newGame()
         self.colors = [QtGui.QColor(255, 0, 0, 255),
                        QtGui.QColor(255, 255, 0, 255),
@@ -26,11 +27,10 @@ class SnakeWidget(QWidget):
                        QtGui.QColor(0, 255, 0, 255)]
 
     def newGame(self):
+        self.snake = Snake()
         self.is_paused = False
         self.show()
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.move)
-        self.timer.start(90)
+        self.timer.start(50)
 
     def resizeEvent(self, event):
         self._cell_height = self.size().height() // self.snake.field_height

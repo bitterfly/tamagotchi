@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Jun 30 22:27:43 2015
+# Created: Tue Jun 30 22:35:46 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -47,6 +47,12 @@ class Ui_MainWindow(object):
         self.buttons.addWidget(self.number_of_coins)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.buttons.addItem(spacerItem)
+        self.open = QtWidgets.QPushButton(self.buttons_2)
+        self.open.setObjectName("open")
+        self.buttons.addWidget(self.open)
+        self.save = QtWidgets.QPushButton(self.buttons_2)
+        self.save.setObjectName("save")
+        self.buttons.addWidget(self.save)
         self.cure = QtWidgets.QPushButton(self.buttons_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -160,6 +166,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.number_of_coins.setText(_translate("MainWindow", "0"))
+        self.open.setText(_translate("MainWindow", "open"))
+        self.save.setText(_translate("MainWindow", "save"))
         self.cure.setText(_translate("MainWindow", "cure"))
         self.play.setText(_translate("MainWindow", "Play"))
         self.energy_bar.setFormat(_translate("MainWindow", "Energy: %p%"))
@@ -168,5 +176,5 @@ class Ui_MainWindow(object):
         self.food_bar.setFormat(_translate("MainWindow", "Food: %p%"))
         self.happiness_bar.setFormat(_translate("MainWindow", "Happiness: %p%"))
 
-from snake_widget import SnakeWidget
 from tamagotchi_widget import TamagotchiWidget
+from snake_widget import SnakeWidget

@@ -24,6 +24,7 @@ class Tamagotchi:
         self.is_dead = False
         self.is_playing = False
         self.is_sick = False
+        self.money = 0
 
     def constrain(self, value):
         value = min(100, value)
@@ -46,8 +47,9 @@ class Tamagotchi:
         self.stats[statistic] += (time_given * 1) / (full_hours * 36)
 
     def random_event(self):
-        if(randint(0, 500) == 0):
+        if(randint(0, 500) == 0 and self.is_playing == False):
             self.is_sick = True
+
     def cure(self):
         self.is_sick = False
 

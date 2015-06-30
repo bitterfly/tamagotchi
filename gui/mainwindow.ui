@@ -93,6 +93,20 @@
           </spacer>
          </item>
          <item>
+          <widget class="QPushButton" name="open">
+           <property name="text">
+            <string>open</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="save">
+           <property name="text">
+            <string>save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="cure">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

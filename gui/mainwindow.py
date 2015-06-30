@@ -50,6 +50,7 @@ class MainWindow(QMainWindow):
 
     @QtCore.pyqtSlot()
     def end_snake_game(self):
+        self.tamagotchi.is_playing = False
         self.set_focus(self.ui.tamagotchi_widget, self.ui.snake_widget)
 
     @QtCore.pyqtSlot()
@@ -65,4 +66,5 @@ class MainWindow(QMainWindow):
     def snake_game(self):
         #скрива се тамагочито и се показва змията
         self.ui.snake_widget.newGame()
+        self.tamagotchi.is_playing = True
         self.set_focus(self.ui.snake_widget, self.ui.tamagotchi_widget)

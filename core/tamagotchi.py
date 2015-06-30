@@ -46,7 +46,7 @@ class Tamagotchi:
         self.stats[statistic] += (time_given * 1) / (full_hours * 36)
 
     def random_event(self):
-        if(randint(0, 10000) == 0):
+        if(randint(0, 500) == 0):
             self.is_sick = True
     def cure(self):
         self.is_sick = False
@@ -75,7 +75,7 @@ class Tamagotchi:
                self.stats["hygiene"] <= 50):
                 self.is_sick = True
         if self.is_sick:
-            self.decrease_to_minimum("health", 5, seconds)
+            self.decrease_to_minimum("health", 0.5, seconds)
 
         self.constrain_stats()
 

@@ -23,6 +23,7 @@ class MainWindow(QMainWindow):
 
         #Свързване на уиджета на снейка при натискане на бутон плей
         self.ui.play.clicked.connect(self.snake_game)
+        self.ui.cure.clicked.connect(self.cure)
 
         #Скриване на снейк - уиджет и фокус на тамагочи
         self.set_focus(self.ui.tamagotchi_widget, self.ui.snake_widget)
@@ -61,6 +62,10 @@ class MainWindow(QMainWindow):
         old_widget.hide()
         new_widget.show()
         new_widget.setFocus()
+
+    def cure(self):
+        self.tamagotchi.stats["health"] = 100
+        self.tamagotchi.is_sick == False
 
     @QtCore.pyqtSlot()
     def snake_game(self):

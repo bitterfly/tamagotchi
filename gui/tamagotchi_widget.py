@@ -16,7 +16,7 @@ class TamagotchiWidget(QWidget):
         #Таймерът, който анимира смяната на картинките
         self.frame_timer = QtCore.QTimer(self)
         self.frame_timer.timeout.connect(self.next_image)
-        self.frame_timer.start(5)
+        self.frame_timer.start(50)
         self.show()
 
     def load_resources(self, directory):

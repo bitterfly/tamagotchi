@@ -93,9 +93,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="open">
+          <widget class="QPushButton" name="store">
            <property name="text">
-            <string>open</string>
+            <string>store</string>
            </property>
           </widget>
          </item>
@@ -190,6 +190,34 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QFrame" name="store_frame">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2"/>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
          <item>
           <widget class="SnakeWidget" name="snake_widget" native="true">
            <property name="sizePolicy">

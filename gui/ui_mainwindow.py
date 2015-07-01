@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Jun 30 22:35:46 2015
+# Created: Wed Jul  1 18:38:56 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -47,9 +47,9 @@ class Ui_MainWindow(object):
         self.buttons.addWidget(self.number_of_coins)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.buttons.addItem(spacerItem)
-        self.open = QtWidgets.QPushButton(self.buttons_2)
-        self.open.setObjectName("open")
-        self.buttons.addWidget(self.open)
+        self.store = QtWidgets.QPushButton(self.buttons_2)
+        self.store.setObjectName("store")
+        self.buttons.addWidget(self.store)
         self.save = QtWidgets.QPushButton(self.buttons_2)
         self.save.setObjectName("save")
         self.buttons.addWidget(self.save)
@@ -87,6 +87,21 @@ class Ui_MainWindow(object):
         self.canvases.setSpacing(0)
         self.canvases.setContentsMargins(0, 0, 0, 0)
         self.canvases.setObjectName("canvases")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.store_frame = QtWidgets.QFrame(self.canvas_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.store_frame.sizePolicy().hasHeightForWidth())
+        self.store_frame.setSizePolicy(sizePolicy)
+        self.store_frame.setObjectName("store_frame")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.store_frame)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.verticalLayout_4.addWidget(self.store_frame)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem2)
+        self.canvases.addLayout(self.verticalLayout_4)
         self.snake_widget = SnakeWidget(self.canvas_frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -166,7 +181,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.number_of_coins.setText(_translate("MainWindow", "0"))
-        self.open.setText(_translate("MainWindow", "open"))
+        self.store.setText(_translate("MainWindow", "store"))
         self.save.setText(_translate("MainWindow", "save"))
         self.cure.setText(_translate("MainWindow", "cure"))
         self.play.setText(_translate("MainWindow", "Play"))

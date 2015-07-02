@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Jul  1 18:38:56 2015
+# Created: Thu Jul  2 23:02:24 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -53,14 +53,14 @@ class Ui_MainWindow(object):
         self.save = QtWidgets.QPushButton(self.buttons_2)
         self.save.setObjectName("save")
         self.buttons.addWidget(self.save)
-        self.cure = QtWidgets.QPushButton(self.buttons_2)
+        self.sleep = QtWidgets.QPushButton(self.buttons_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cure.sizePolicy().hasHeightForWidth())
-        self.cure.setSizePolicy(sizePolicy)
-        self.cure.setObjectName("cure")
-        self.buttons.addWidget(self.cure)
+        sizePolicy.setHeightForWidth(self.sleep.sizePolicy().hasHeightForWidth())
+        self.sleep.setSizePolicy(sizePolicy)
+        self.sleep.setObjectName("sleep")
+        self.buttons.addWidget(self.sleep)
         self.play = QtWidgets.QPushButton(self.buttons_2)
         self.play.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -183,7 +183,7 @@ class Ui_MainWindow(object):
         self.number_of_coins.setText(_translate("MainWindow", "0"))
         self.store.setText(_translate("MainWindow", "store"))
         self.save.setText(_translate("MainWindow", "save"))
-        self.cure.setText(_translate("MainWindow", "cure"))
+        self.sleep.setText(_translate("MainWindow", "Sleep"))
         self.play.setText(_translate("MainWindow", "Play"))
         self.energy_bar.setFormat(_translate("MainWindow", "Energy: %p%"))
         self.health_bar.setFormat(_translate("MainWindow", "Health: %p%"))
@@ -191,5 +191,5 @@ class Ui_MainWindow(object):
         self.food_bar.setFormat(_translate("MainWindow", "Food: %p%"))
         self.happiness_bar.setFormat(_translate("MainWindow", "Happiness: %p%"))
 
-from tamagotchi_widget import TamagotchiWidget
 from snake_widget import SnakeWidget
+from tamagotchi_widget import TamagotchiWidget

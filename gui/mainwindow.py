@@ -53,6 +53,9 @@ class MainWindow(QMainWindow):
         self.ui.snake_widget.dead_signal.connect(self.end_snake_game)
         self.ui.snake_widget.coin_signal.connect(self.add_coins)
 
+        #****
+        self.ui.tamagotchi_widget.load_resources()
+        #****
         #Таймерът, с който се отмерва времето на самото животно
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.second_pass)
@@ -63,15 +66,15 @@ class MainWindow(QMainWindow):
         self.ui.number_of_coins.setText(str(self.tamagotchi.money))
         self.load_store()
 
+
     def connect_buttons(self):
         self.ui.play.clicked.connect(self.snake_game)
-        self.ui.cure.clicked.connect(self.cure)
+        self.ui.sleep.clicked.connect(self.sleep)
         self.ui.store.clicked.connect(self.open_store)
         self.ui.save.clicked.connect(self.save)
 
 
-    def test(self):
-        print(self.sender().item["name"])
+    def buy_item(self):
         item = self.sender().item
         self.tamagotchi.apply(item["stats"])
         if self.tamagotchi.stats["health"] == 100:
@@ -91,9 +94,9 @@ class MainWindow(QMainWindow):
             image_label = ClickableLabel()
             image = QtGui.QPixmap(os.path.join(extras_directory, item["image"]))
             text_label.item = item
-            text_label.clicked.connect(self.test)
+            text_label.clicked.connect(self.buy_item)
             image_label.item = item
-            image_label.clicked.connect(self.test)
+            image_label.clicked.connect(self.buy_item)
 
             image_label.setPixmap(image.scaled(100, 100, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation))
             text_label.setText("NAME: " + item["name"] + ": " + str(item["price"]) + "p")
@@ -116,9 +119,29 @@ class MainWindow(QMainWindow):
                 item[0].setEnabled(True)
                 item[1].setEnabled(True)
 
+    def change_mode(self, mode):
+        self.ui.tamagotchi_widget.tamagotchi_images = mode
+
+    @QtCore.pyqtSlot()
+    def sleep(self):
+        if self.tamagotchi.is_sleeping:
+            self.tamagotchi.is_sleeping = False
+            if self.tamagotchi.is_sick:
+                self.change_mode(self.ui.tamagotchi_widget.tamagotchi_sick)
+            else:
+                self.change_mode(self.ui.tamagotchi_widget.tamagotchi_normal)
+        else:
+            self.tamagotchi.is_sleeping = True
+            self.change_mode(self.ui.tamagotchi_widget.tamagotchi_sleep)
+
     @QtCore.pyqtSlot()
     def second_pass(self):
         self.tamagotchi.second_pass()
+        if not self.tamagotchi.is_sleeping:
+            if self.tamagotchi.is_sick:
+                self.change_mode(self.ui.tamagotchi_widget.tamagotchi_sick)
+            else:
+                self.change_mode(self.ui.tamagotchi_widget.tamagotchi_normal)
         self.update_bars()
 
     def update_bars(self):
@@ -154,11 +177,6 @@ class MainWindow(QMainWindow):
            self.set_focus(self.ui.tamagotchi_widget, self.ui.snake_widget)
         else:
             self.set_focus(self.ui.store_frame, self.ui.tamagotchi_widget, self.ui.snake_widget)
-
-    @QtCore.pyqtSlot()
-    def cure(self):
-        self.tamagotchi.stats["health"] = 100
-        self.tamagotchi.is_sick == False
 
     @QtCore.pyqtSlot()
     def save(self):

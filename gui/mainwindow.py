@@ -3,11 +3,12 @@ import sys
 import os
 import pickle
 import json
+from PyQt5 import QtWidgets
 from datetime import datetime
+from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QMovie
 from PyQt5 import QtCore
-from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from ui_mainwindow import Ui_MainWindow
 from xdg.BaseDirectory import xdg_config_home
@@ -19,6 +20,13 @@ resource_directory = os.path.join(script_directory, "resources")
 extras_directory = os.path.join(resource_directory, "extra")
 sys.path.append(parent_directory)
 from core.tamagotchi import Tamagotchi
+
+class ClickableLabel(QLabel):
+    clicked = QtCore.pyqtSignal()
+    item = None
+    def mousePressEvent(self, event):
+        self.clicked.emit()
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -36,11 +44,8 @@ class MainWindow(QMainWindow):
             self.tamagotchi = Tamagotchi()
         self.ui.tamagotchi_widget.tamagotchi = self.tamagotchi
 
-        #Свързване на уиджета на снейка при натискане на бутон плей
-        self.ui.play.clicked.connect(self.snake_game)
-        self.ui.cure.clicked.connect(self.cure)
-        self.ui.store.clicked.connect(self.open_store)
-        self.ui.save.clicked.connect(self.save)
+        #Свързване на всички бутони:
+        self.connect_buttons()
 
         #Скриване на снейк - уиджет и фокус на тамагочи
         self.set_focus(self.ui.tamagotchi_widget, self.ui.snake_widget)
@@ -53,26 +58,63 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.second_pass)
         self.timer.start(100)
         self.ui.coin.setPixmap(self.ui.tamagotchi_widget.coin_image)
+
         #Set coins
         self.ui.number_of_coins.setText(str(self.tamagotchi.money))
         self.load_store()
 
+    def connect_buttons(self):
+        self.ui.play.clicked.connect(self.snake_game)
+        self.ui.cure.clicked.connect(self.cure)
+        self.ui.store.clicked.connect(self.open_store)
+        self.ui.save.clicked.connect(self.save)
+
+
+    def test(self):
+        print(self.sender().item["name"])
+        item = self.sender().item
+        self.tamagotchi.apply(item["stats"])
+        if self.tamagotchi.stats["health"] == 100:
+            self.tamagotchi.cure()
+
     def load_store(self):
+        self.store_labels = []
+        #Четат се айтемите от файл в същата директория
         with open(os.path.join(script_directory, 'items'), 'r') as output_file:
             self.items = json.load(output_file)
+
+        #Създават се по два лейбъла за всеки обект: картинка и текст
+        #И се подреждат в грид-а на widget-a
+
         for item in self.items:
-            text = QtWidgets.QLabel()
-            image_label = QtWidgets.QLabel()
+            text_label = ClickableLabel()
+            image_label = ClickableLabel()
             image = QtGui.QPixmap(os.path.join(extras_directory, item["image"]))
+            text_label.item = item
+            text_label.clicked.connect(self.test)
+            image_label.item = item
+            image_label.clicked.connect(self.test)
+
             image_label.setPixmap(image.scaled(100, 100, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation))
-            print(os.path.join(extras_directory, item["image"]))
-            text.setText("NAME: " + item["name"])
+            text_label.setText("NAME: " + item["name"] + ": " + str(item["price"]) + "p")
             for key, value in item["stats"].items():
                 if value != 0:
-                    text.setText(text.text() + "\n" + str(key) + ": " + str(value))
-            self.ui.store_frame.layout().addWidget(text, item["coordinates"][0], item["coordinates"][1])
-            self.ui.store_frame.layout().addWidget(image_label, item["coordinates"][0] + 1, item["coordinates"][1])
+                    text_label.setText(text_label.text() + "\n" + str(key) + ": " + str(value))
 
+            self.store_labels.append((text_label, image_label))
+
+            self.ui.store_frame.layout().addWidget(text_label, item["coordinates"][0], item["coordinates"][1])
+            self.ui.store_frame.layout().addWidget(image_label, item["coordinates"][0] + 1, item["coordinates"][1])
+            self.check_prices()
+
+    def check_prices(self):
+        for item in self.store_labels:
+            if item[0].item["price"] > self.tamagotchi.money:
+                item[0].setEnabled(False)
+                item[1].setEnabled(False)
+            else:
+                item[0].setEnabled(True)
+                item[1].setEnabled(True)
 
     @QtCore.pyqtSlot()
     def second_pass(self):
@@ -96,19 +138,22 @@ class MainWindow(QMainWindow):
     def add_coins(self):
         self.tamagotchi.money += 1
         self.ui.number_of_coins.setText(str(self.tamagotchi.money))
+        self.check_prices()
 
     def set_focus(self, new_widget, old_widget, unused_widget=None):
         old_widget.hide()
         if not unused_widget:
             unused_widget = self.ui.store_frame
-            print("gs")
         unused_widget.hide()
         new_widget.show()
         new_widget.setFocus()
 
     @QtCore.pyqtSlot()
     def open_store(self):
-        self.set_focus(self.ui.store_frame, self.ui.tamagotchi_widget, self.ui.snake_widget)
+        if self.ui.store_frame.isVisible():
+           self.set_focus(self.ui.tamagotchi_widget, self.ui.snake_widget)
+        else:
+            self.set_focus(self.ui.store_frame, self.ui.tamagotchi_widget, self.ui.snake_widget)
 
     @QtCore.pyqtSlot()
     def cure(self):

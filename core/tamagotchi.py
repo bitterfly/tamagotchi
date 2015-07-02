@@ -19,7 +19,7 @@ from random import randint
 class Tamagotchi:
     def __init__(self):
         self.stats = {"food": 100, "happiness": 100, "hygiene": 100,
-                 "health": 100, "energy": 100, "age": 0}
+                 "health": 100, "energy": 100}
         self.is_sleeping = False
         self.is_dead = False
         self.is_playing = False
@@ -37,7 +37,7 @@ class Tamagotchi:
 
     def apply(self, item):
         for statistic, value in self.stats.items():
-            self.stats[statistic] += item.stats[statistic]
+            self.stats[statistic] += item[statistic]
         self.constrain_stats()
 
     def decrease_to_minimum(self, statistic, full_hours, time_given):
@@ -77,7 +77,7 @@ class Tamagotchi:
                self.stats["hygiene"] <= 50):
                 self.is_sick = True
         if self.is_sick:
-            self.decrease_to_minimum("health", 0.5, seconds)
+            self.decrease_to_minimum("health", 3, seconds)
 
         self.constrain_stats()
 

@@ -48,7 +48,23 @@
         "image": "spam3.jpg"
     },
     {
-        "name": "viagra",
+        "name": "Mr.Proper",
+        "stats": {
+            "food": 0,
+            "happiness": 0,
+            "hygiene": 20,
+            "energy": 0,
+            "health": 0
+        },
+        "price": 3,
+        "coordinates": [
+            2,
+            0
+        ],
+        "image": "proper.jpg"
+    },
+    {
+        "name": "Viagra",
         "stats": {
             "food": 0,
             "happiness": 0,
@@ -59,7 +75,7 @@
         "price": 0,
         "coordinates": [
             2,
-            0
+            1
         ],
         "image": "viagra.png"
     }

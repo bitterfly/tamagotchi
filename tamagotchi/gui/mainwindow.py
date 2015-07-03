@@ -121,6 +121,7 @@ class MainWindow(QMainWindow):
         self.ui.number_of_coins.setText(str(self.tamagotchi.money))
         if self.tamagotchi.stats["health"] == 100:
             self.tamagotchi.cure()
+        self.check_prices()
 
     #The function updates the coin situation -
     #whether you can buy an item or not. The items you can buy are

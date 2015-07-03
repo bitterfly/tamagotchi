@@ -117,6 +117,8 @@ class MainWindow(QMainWindow):
     def buy_item(self):
         item = self.sender().item
         self.tamagotchi.apply(item["stats"])
+        self.tamagotchi.money -= item["price"]
+        self.ui.number_of_coins.setText(str(self.tamagotchi.money))
         if self.tamagotchi.stats["health"] == 100:
             self.tamagotchi.cure()
 

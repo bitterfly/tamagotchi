@@ -19,7 +19,7 @@ from random import randint
 class Tamagotchi:
     def __init__(self):
         self.stats = {"food": 100, "happiness": 100, "hygiene": 100,
-                 "health": 100, "energy": 80}
+                 "health": 100, "energy": 100}
         self.is_sleeping = False
         self.is_dead = False
         self.is_playing = False

@@ -1,0 +1,66 @@
+[
+    {
+        "name": "Eggs with spam",
+        "stats": {
+            "food": 20,
+            "happiness": 0,
+            "hygiene": 0,
+            "energy": 0,
+            "health": 0
+        },
+        "price": 10,
+        "coordinates": [
+            0,
+            0
+        ],
+        "image": "spam.png"
+    },
+    {
+        "name": "Eggs'n'spam",
+        "stats": {
+            "food": 10,
+            "happiness": 0,
+            "hygiene": 0,
+            "energy": 0,
+            "health": 0
+        },
+        "price": 3,
+        "coordinates": [
+            0,
+            1
+        ],
+        "image": "spam2.png"
+    },
+    {
+        "name": "Japanese Spam",
+        "stats": {
+            "food": 25,
+            "happiness": 0,
+            "hygiene": 0,
+            "energy": 0,
+            "health": 0
+        },
+        "price": 15,
+        "coordinates": [
+            0,
+            2
+        ],
+        "image": "spam3.jpg"
+    },
+    {
+        "name": "viagra",
+        "stats": {
+            "food": 0,
+            "happiness": 0,
+            "hygiene": 0,
+            "energy": 0,
+            "health": 10
+        },
+        "price": 0,
+        "coordinates": [
+            2,
+            0
+        ],
+        "image": "viagra.png"
+    }
+]
